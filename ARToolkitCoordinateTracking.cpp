@@ -1,3 +1,10 @@
+// ARToolkitCoordinateTracking.cpp
+// 
+// Author: Dylan Wallace, Drones and Autonomous Systems Lab @ University of Nevada, Las Vegas
+//
+// This is an ARToolkit program for tracking the relative x & y coordinates of ARToolkit markers. 
+// This is important for a future program that will use the markers as obstacles and targets for robotic navigation.
+
 #ifdef _WIN32
 #  include <windows.h>
 #endif
@@ -208,13 +215,15 @@ static void mainLoop(void)
     k = -1;
     for( j = 0; j < markerNum; j++ ) {
         ARLOG("ID=%d, CF = %f\n", markerInfo[j].id, markerInfo[j].cf);
-
+	
+	// match the barcode marker to the proper ID
         for (h = 0; h < 7; h++) {
             if (markerInfo[j].idMatrix == h) {
                 yCoord[h] = (yReal / ysize)*(ysize - markerInfo[j].pos[1]);
                 xCoord[h] = (xReal / xsize)*(markerInfo[j].pos[0]);
             }
 
+	    // Create a coordinate system to keep track of the relative positions
             if ((xCoord[0] != 0) && (yCoord[0] != 0) && (xCoord[h] < 1000) && (yCoord[h] < 1000) && (xCoord[h] > -1000) && (yCoord[h] > -1000)) {
                 xCoordRel[h] = xCoord[h] - xCoord[0];
                 yCoordRel[h] = yCoord[h] - yCoord[0];
