@@ -1,3 +1,9 @@
+% potField1.m
+%
+% Author: Dylan Wallace
+%
+% This is a simple Matlab program to visualize the Potential Fields Path Planning technique.
+
 T = 0.1;
 rho0 = 3;
 nAttract = 2;
